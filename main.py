@@ -8,7 +8,7 @@ screen = new_screen()
 color = [ 0, 255, 0 ]
 edges = []
 transform = new_matrix()
-polygons = [[0, 0, 0, 1], [250, 0, 0, 1], [0, 250, 0, 1]]
+polygons = []
 
 # print_matrix( make_bezier() )
 # print
@@ -17,5 +17,6 @@ polygons = [[0, 0, 0, 1], [250, 0, 0, 1], [0, 250, 0, 1]]
 
 #parse_file( 'script', edges, transform, screen, color )
 clear_screen(screen)
+add_polygon(polygons, 0, 0, 0, 0, 250, 0, 250, 0, 0)
 draw_polygons(polygons, screen, color)
 display(screen)
