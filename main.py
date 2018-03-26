@@ -17,6 +17,11 @@ polygons = []
 
 #parse_file( 'script', edges, transform, screen, color )
 clear_screen(screen)
-add_polygon(polygons, 0, 0, 0, 0, 250, 0, 250, 0, 0)
+add_boxt(polygons, 250, 250, 0, 100, 50, 150)
+ident(transform)
+matrix_mult(make_rotX(45), transform)
+matrix_mult(make_rotY(45), transform)
+matrix_mult(transform, polygons)
+
 draw_polygons(polygons, screen, color)
 display(screen)

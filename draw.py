@@ -20,11 +20,33 @@ def draw_polygons( matrix, screen, color ):
                    int(matrix[point+2][0]),int(matrix[point+2][1]),
                    screen, color) 
 		point += 3
+def add_boxt(points, x, y, z, width, height, depth):
+	x1 = x + width
+	y1 = y - height
+	z1 = z - depth
+
+	#front
+	add_polygon(points, x, y, z, x1, y, z, x, y1, z)
+	add_polygon(points, x1, y, z, x, y1, z, x1, y1, z)
+	#back
+	add_polygon(points, x, y, z1, x1, y1, z1, x, y1, z1)
+	add_polygon(points, x, y, z1, x1, y, z1, x1, y1, z1)
+	#ls
+	add_polygon(points, x, y, z, x, y1, z, x, y1, z1)
+	add_polygon(points, x, y, z, x, y1, z1, x, y, z1)
+	#rs
+	add_polygon(points, x1, y, z, x1, y, z1, x1, y1, z)
+	add_polygon(points, x1, y1, z1, x1, y, z1, x1, y1, z)
+	#botton
+	#top
+	
 
 def add_box( points, x, y, z, width, height, depth ):
     x1 = x + width
     y1 = y - height
     z1 = z - depth
+
+	
 
     #front
     add_edge(points, x, y, z, x1, y, z)
