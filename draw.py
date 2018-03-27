@@ -37,8 +37,12 @@ def add_boxt(points, x, y, z, width, height, depth):
 	#rs
 	add_polygon(points, x1, y, z, x1, y, z1, x1, y1, z)
 	add_polygon(points, x1, y1, z1, x1, y, z1, x1, y1, z)
-	#botton
+	#bottom
+	add_polygon(points, x, y, z, x1, y, z, x, y, z1)
+	add_polygon(points, x1, y, z, x, y, z1, x1, y, z1)
 	#top
+	add_polygon(points, x, y1, z, x1, y1, z, x1, y1, z1)
+	add_polygon(points, x, y1, z, x, y1, z1, x1, y1, z1)
 	
 
 def add_box( points, x, y, z, width, height, depth ):
