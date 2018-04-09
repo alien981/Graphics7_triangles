@@ -17,8 +17,8 @@ polygons = []
 
 #parse_file( 'script', edges, transform, screen, color )
 clear_screen(screen)
-add_torus(edges, 250, 250, 0, 50, 100, 15)
-add_torust(polygons, 250, 250, 0, 50, 100, 15)
+add_sphere(edges, 250, 250, 0, 100, 20)
+add_spheret(polygons, 250, 250, 0, 100, 20)
 
 
 draw_polygons(polygons, screen, color)
