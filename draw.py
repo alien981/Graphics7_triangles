@@ -70,25 +70,6 @@ def add_box( points, x, y, z, width, height, depth ):
     add_edge(points, x, y1, z, x, y1, z1)
     add_edge(points, x1, y1, z, x1, y1, z1)
 
-def add_sphere( edges, cx, cy, cz, r, step ):
-    points = generate_sphere(cx, cy, cz, r, step)
-
-    lat_start = 0
-    lat_stop = step
-    longt_start = 0
-    longt_stop = step
-
-    step+= 1
-    for lat in range(lat_start, lat_stop):
-        for longt in range(longt_start, longt_stop+1):
-            index = lat * step + longt
-
-            add_edge(edges, points[index][0],
-                     points[index][1],
-                     points[index][2],
-                     points[index][0]+1,
-                     points[index][1]+1,
-                     points[index][2]+1 )
 
 def generate_sphere( cx, cy, cz, r, step ):
     points = []
@@ -111,6 +92,47 @@ def generate_sphere( cx, cy, cz, r, step ):
             #print 'rotation: %d\tcircle%d'%(rotation, circle)
     return points
 
+def add_sphere( edges, cx, cy, cz, r, step ):
+    points = generate_sphere(cx, cy, cz, r, step)
+
+    lat_start = 0
+    lat_stop = step
+    longt_start = 0
+    longt_stop = step
+
+    step+= 1
+    for lat in range(lat_start, lat_stop):
+        for longt in range(longt_start, longt_stop+1):
+            index = lat * step + longt
+
+            add_edge(edges, points[index][0],
+                     points[index][1],
+                     points[index][2],
+                     points[index][0]+1,
+                     points[index][1]+1,
+                     points[index][2]+1 )
+
+def add_spheret(polygons, cx, cy, cz, r, step):
+	points = generate_sphere(cx, cy, cz, r, step)
+	e = 0
+	while e<step+1:
+		w = 0
+		while w<step+1:
+			add_polygon(polygons, points[(e*step+w)%(len(points))][0], points[(e*step+w)%(len(points))][1], 
+				points[(e*step+w)%(len(points))][2], points[(e*step+w+1)%(len(points))][0], 					points[(e*step+w+1)%(len(points))][1], points[(w+1)%(len(points))][2],
+				points[(e*step+w+step+2)%(len(points))][0], points[(e*step+w+step+2)%(len(points))][1], 
+				points[(w+step+2+e*step)%(len(points))][2])
+			add_polygon(polygons, points[(e*step+w)%(len(points))][0], points[(e*step+w)%(len(points))][1], 
+				points[(e*step+w)%(len(points))][2], points[(e*step+w+step+2)%(len(points))][0], 
+				points[(e*step+w+step+2)%(len(points))][1], points[(w+step+2+e*step)%(len(points))][2], 
+				points[(e*step+w+step+1)%(len(points))][0], points[(e*step+w+step+1)%(len(points))][1], 
+				points[(w+step+1+e*step)%(len(points))][2])
+			w += 1
+		e += 1
+
+
+
+	
 def add_torus( edges, cx, cy, cz, r0, r1, step ):
     points = generate_torus(cx, cy, cz, r0, r1, step)
 
@@ -148,6 +170,26 @@ def generate_torus( cx, cy, cz, r0, r1, step ):
 
             points.append([x, y, z])
     return points
+
+def add_torust(polygons, cx, cy, cz, r0, r1, step):
+	points = generate_torus(cx, cy, cz, r0, r1, step)
+	q = 0
+	while q<step:
+		w = 0
+		while w < step:
+			add_polygon(polygons, points[(q*step+w)%len(points)][0], points[(q*step+w)%len(points)][1], 
+					points[(q*step+w)%len(points)][2], points[(q*step+w+1)%len(points)][0], 
+					points[(q*step+w+1)%len(points)][1], points[(q*step+w+1)%len(points)][2], 
+					points[(q*step+w+step)%len(points)][0], 
+					points[(q*step+w+step)%len(points)][1], points[(q*step+w+step)%len(points)][2])
+			add_polygon(polygons, points[(q*step+w+step)%len(points)][0], points[(q*step+w+step)%len(points)][1], 
+					points[(q*step+w+step)%len(points)][2], points[(q*step+w+1)%len(points)][0], 
+					points[(q*step+w+1)%len(points)][1],points[(q*step+w+1)%len(points)][2], 
+					points[(q*step+w+1+step)%len(points)][0], points[(q*step+w+1+step)%len(points)][1], 
+					points[(q*step+w+1+step)%len(points)][2])
+			w += 1
+		q += 1
+
 
 def add_circle( points, cx, cy, cz, r, step ):
     x0 = r + cx
