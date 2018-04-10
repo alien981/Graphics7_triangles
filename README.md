@@ -1,1 +1,0 @@
-# Graphics7_triangles
